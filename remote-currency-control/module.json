@@ -2,7 +2,7 @@
   "id": "remote-currency-control",
   "title": "Remote Currency Control",
   "description": "A module to control character currency remotely via WebSocket.",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "compatibility": {
     "minimum": "12",
     "verified": "12",

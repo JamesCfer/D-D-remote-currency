@@ -3,6 +3,22 @@ import socketio
 
 sio = socketio.AsyncClient()
 
+async def connect_and_send(request, event_name, response_handler):
+    @sio.event
+    async def connect():
+        print('Connection established')
+        await sio.emit('module.remote-currency-control', request)
+        print(f'{event_name} request sent:', request)
+
+    @sio.on(event_name)
+    async def on_response(data):
+        print(f'{event_name} response received:', data)
+        await response_handler(data)
+        await sio.disconnect()
+
+    await sio.connect('http://x:30000')
+    await sio.wait()
+
 async def get_currency(actor_id):
     request_id = "unique-request-id-get"
     request = {
@@ -11,29 +27,13 @@ async def get_currency(actor_id):
         "requestId": request_id
     }
 
-    @sio.event
-    async def connect():
-        print('Connection established')
-        await sio.emit('module.remote-currency-control', request)
-        print('Request sent:', request)
-
-    @sio.on('currencyResponse')
-    async def on_currency_response(data):
-        print('Currency response received:', data)
+    async def handle_response(data):
         if data['requestId'] == request_id:
-            print('Currency:', data['currency'])
-            await sio.disconnect()
+            print('Currency:', data.get('currency'))
+        else:
+            print('Unexpected response:', data)
 
-    @sio.event
-    async def connect_error(data):
-        print("The connection failed!", data)
-
-    @sio.event
-    async def disconnect():
-        print('Disconnected from server')
-
-    await sio.connect('http://192.18.144.0:30000')
-    await sio.wait()
+    await connect_and_send(request, 'currencyResponse', handle_response)
 
 async def update_currency(actor_id, new_currency):
     request_id = "unique-request-id-update"
@@ -44,22 +44,21 @@ async def update_currency(actor_id, new_currency):
         "requestId": request_id
     }
 
-    @sio.event
-    async def connect():
-        print('Connection established')
-        await sio.emit('module.remote-currency-control', request)
-        print('Update request sent:', request)
+    async def handle_response(data):
+        if data['requestId'] == request_id:
+            print('Update confirmed')
+        else:
+            print('Unexpected response:', data)
 
-    @sio.event
-    async def connect_error(data):
-        print("The connection failed!", data)
+    await connect_and_send(request, 'updateCurrencyResponse', handle_response)
 
-    @sio.event
-    async def disconnect():
-        print('Disconnected from server')
+@sio.event
+async def connect_error(data):
+    print("The connection failed!", data)
 
-    await sio.connect('http://192.18.0.0:30000')
-    await sio.wait()
+@sio.event
+async def disconnect():
+    print('Disconnected from server')
 
 # Example usage
 actor_id = "8s3BJnLyIZu7otje"
