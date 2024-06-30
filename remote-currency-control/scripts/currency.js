@@ -10,5 +10,5 @@ export async function updateCurrency(actorId, newCurrency) {
     const actor = game.actors.get(actorId);
     if (!actor) return;
 
-    await actor.update({'data.currency': newCurrency});
+    await actor.update({'system.currency': newCurrency});
 }
