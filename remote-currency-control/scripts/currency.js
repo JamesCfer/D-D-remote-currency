@@ -2,7 +2,7 @@ export async function getCurrency(actorId) {
     const actor = game.actors.get(actorId);
     if (!actor) return null;
 
-    const currency = actor.data.data.currency;
+    const currency = actor.system.currency;
     return currency;
 }
 

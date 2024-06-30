@@ -2,7 +2,7 @@
   "id": "remote-currency-control",
   "title": "Remote Currency Control",
   "description": "A module to control character currency remotely via WebSocket.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": {
     "minimum": "12",
     "verified": "12",
@@ -10,7 +10,7 @@
   },
   "authors": [
     {
-      "name": "Your Name",
+      "name": "JamesCfer",
       "url": "https://your-url.com",
       "flags": {}
     }
@@ -35,7 +35,7 @@
     ]
   },
   "url": "https://your-url.com",
-  "manifest": "https://your-url.com/path/to/module.json",
+  "manifest": "https://github.com/JamesCfer/D-D-remote-currency/blob/main/module.json",
   "download": "https://your-url.com/path/to/module.zip",
   "readme": "https://your-url.com/path/to/readme"
 }

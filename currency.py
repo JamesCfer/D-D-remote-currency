@@ -32,7 +32,7 @@ async def get_currency(actor_id):
     async def disconnect():
         print('Disconnected from server')
 
-    await sio.connect('http://192.18.144.239:30000')
+    await sio.connect('http://192.18.144.0:30000')
     await sio.wait()
 
 async def update_currency(actor_id, new_currency):
