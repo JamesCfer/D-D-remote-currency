@@ -1,0 +1,41 @@
+{
+  "id": "remote-currency-control",
+  "title": "Remote Currency Control",
+  "description": "A module to control character currency remotely via WebSocket.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12",
+    "maximum": "12"
+  },
+  "authors": [
+    {
+      "name": "Your Name",
+      "url": "https://your-url.com",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "scripts/main.js",
+    "scripts/currency.js"
+  ],
+  "languages": [],
+  "relationships": {
+    "requires": [
+      {
+        "id": "lib-wrapper",
+        "type": "module",
+        "compatibility": {}
+      },
+      {
+        "id": "socketlib",
+        "type": "module",
+        "compatibility": {}
+      }
+    ]
+  },
+  "url": "https://your-url.com",
+  "manifest": "https://your-url.com/path/to/module.json",
+  "download": "https://your-url.com/path/to/module.zip",
+  "readme": "https://your-url.com/path/to/readme"
+}
